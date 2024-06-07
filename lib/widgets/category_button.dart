@@ -16,7 +16,7 @@ class CategoryButton extends StatelessWidget {
           )
       ),
       onPressed: (){},
-      child: Text("Sport"),
+      child: Text("Business"),
 
 
     );
