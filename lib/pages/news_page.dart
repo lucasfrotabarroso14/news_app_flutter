@@ -4,6 +4,7 @@ import 'package:news_app_flutter/widgets/app_large_text.dart';
 import 'package:news_app_flutter/widgets/app_text.dart';
 import 'package:news_app_flutter/widgets/category_button.dart';
 
+import '../widgets/new_card.dart';
 import '../widgets/news_item_carrosel.dart';
 
 class NewsPage extends StatefulWidget {
@@ -22,9 +23,11 @@ class _NewsPageState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 50,),
+
           Container(
             padding: EdgeInsets.all(16),
             child: Row(
@@ -43,7 +46,7 @@ class _NewsPageState extends State<NewsPage> {
           Container(
 
             height: 160,
-            width: 320,
+            width: 355,
 
             child: Stack(
               children: [
@@ -92,7 +95,7 @@ class _NewsPageState extends State<NewsPage> {
           ),
           Container(
             height: 50,
-            width: 300,
+            width: 400,
             margin: EdgeInsets.all(10),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -100,8 +103,23 @@ class _NewsPageState extends State<NewsPage> {
               itemBuilder: (context,index) => Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: CategoryButton(),
+
               ),
             )
+          ),
+          SizedBox(height: 10,),
+          Expanded(
+
+            // height: 350,
+            // width: double.maxFinite,
+
+            child: ListView.builder(
+              itemCount: 4,
+                itemBuilder: (context,index) => Padding(
+                    padding: const EdgeInsets.all(10),
+                  child: NewCard(),
+                )
+            ),
           )
         ],
       ),
