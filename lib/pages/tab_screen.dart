@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app_flutter/pages/favorites_page.dart';
+import 'package:news_app_flutter/pages/new_detail_page.dart';
 import 'package:news_app_flutter/pages/news_page.dart';
 
 class TabScreen extends StatefulWidget {
@@ -10,6 +12,8 @@ class TabScreen extends StatefulWidget {
 }
 
 class _TabScreenState extends State<TabScreen> {
+  int _currentIndex = 0;
+  final pages = [NewsPage(), FavoritesPage()];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,14 +51,20 @@ class _TabScreenState extends State<TabScreen> {
       ),
 
 
-      body: NewsPage(),
+      body: pages[_currentIndex],
      bottomNavigationBar:BottomNavigationBar(
+       onTap: (index){
+         setState(() {
+           _currentIndex = index;
+         });
+       },
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.newspaper_outlined),
                 label:"News",
           ),
           BottomNavigationBarItem(
+
             icon: Icon(Icons.favorite_border),
             label:"Likes",
           ),

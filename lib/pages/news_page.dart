@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_flutter/cubit/news_state.dart';
 import 'package:news_app_flutter/widgets/app_large_text.dart';
 import 'package:news_app_flutter/widgets/app_text.dart';
 import 'package:news_app_flutter/widgets/category_button.dart';
 
+import '../cubit/news_cubit.dart';
 import '../widgets/new_card.dart';
 import '../widgets/news_item_carrosel.dart';
 
@@ -19,6 +22,13 @@ class _NewsPageState extends State<NewsPage> {
 
   final PageController _pageController = PageController();
   int _currentPage = 0;
+  
+  @override
+  void initState() {
+ 
+    super.initState();
+    context.read<NewsCubit>().fetchTopHeadlines();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,25 +60,57 @@ class _NewsPageState extends State<NewsPage> {
 
             child: Stack(
               children: [
-                PageView.builder(
-                  onPageChanged: (int page){
-                    setState(() {
-                      _currentPage = page;
-                    });
-                  },
-                controller: _pageController,
+                BlocBuilder<NewsCubit,NewState>(
+                    builder: (context,state){
+                      if (state is LoadingState){
+                        return Center(child: Text("Error: Ocorreu um erro"));
+                      }
+                      else if(state is LoadedState){
+                        List _carroselUrlImages=[
+                        state.articles[0].urlToImage ?? const  Icon(
+                          Icons.image,
+                          size: 50.0,
+                          color: Colors.grey,
+                        ),
+                        state.articles[1].urlToImage ?? const  Icon(
+                          Icons.image,
+                          size: 50.0,
+                          color: Colors.grey,
+                        ),
+                          state.articles[2].urlToImage ?? const Icon(
+                            Icons.image,
+                            size: 50.0,
+                            color: Colors.grey,
+                          ),
 
-                scrollDirection: Axis.horizontal,
-                itemCount: 3,
-                itemBuilder: (BuildContext context, int index) {
+                      ];
+                        return  PageView.builder(
+                          onPageChanged: (int page){
+                            setState(() {
+                              _currentPage = page;
+                            });
+                          },
+                          controller: _pageController,
 
-                  return Padding(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 3,
+                          itemBuilder: (BuildContext context, int index) {
 
-                    padding: const EdgeInsets.all(6),
-                    child: NewsItemCarrosel(),
-                  );
-                },
-              ),
+                            return Padding(
+
+                              padding: const EdgeInsets.all(6),
+                              child: NewsItemCarrosel(imageUrl : _carroselUrlImages[index], description:state.articles[index].title),
+                            );
+                          },
+                        );
+                      }
+                      else if (state is ErrorLoadedState){
+                        return Center(child: Text("Error: Ocorreu um erro"));
+                      } else {
+                        return Center(child: Text('No data'));
+                      }
+                    }),
+
                 Positioned(
                   bottom: 20,
                   left: (MediaQuery.of(context).size.width)/3,
@@ -90,8 +132,6 @@ class _NewsPageState extends State<NewsPage> {
                 ),
         ]
             ),
-
-
           ),
           Container(
             height: 50,
@@ -109,17 +149,33 @@ class _NewsPageState extends State<NewsPage> {
           ),
           SizedBox(height: 10,),
           Expanded(
-
             // height: 350,
             // width: double.maxFinite,
+            child: BlocBuilder<NewsCubit,NewState>(
+              builder: (context, state) {
+                if(state is LoadingState){
+                  return Center(child: CircularProgressIndicator());
+                }else if(state is LoadedState){
+                  return ListView.builder(
+                      itemCount: state.articles.length,
+                      itemBuilder: (context,index) => Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          margin: EdgeInsets.all(10),
+                            child: NewCard(article: state.articles[index])
+                        ),
+                      )
+                  );
 
-            child: ListView.builder(
-              itemCount: 4,
-                itemBuilder: (context,index) => Padding(
-                    padding: const EdgeInsets.all(10),
-                  child: NewCard(),
-                )
-            ),
+
+                }else if (state is ErrorLoadedState){
+                  return Center(child: Text("Error: Ocorreu um erro"));
+                } else {
+                  return Center(child: Text('No data'));
+                }
+
+  },
+),
           )
         ],
       ),

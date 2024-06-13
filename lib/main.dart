@@ -1,21 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_flutter/cubit/news_cubit.dart';
 import 'package:news_app_flutter/pages/tab_screen.dart';
+import 'package:news_app_flutter/services/news_service.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+  final NewsService _newsService = NewsService();
+
+
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => NewsCubit(_newsService),)
+      ],
+      child: MaterialApp(
+        title: 'News App',
 
 
-      home: TabScreen(),
+        home: TabScreen(),
+      ),
     );
   }
 }

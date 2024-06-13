@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:news_app_flutter/widgets/app_text.dart';
 
 class NewsItemCarrosel extends StatelessWidget {
-  const NewsItemCarrosel({super.key});
+
+  final String imageUrl;
+  final String description;
+
+  const NewsItemCarrosel({super.key, required this.imageUrl, required this.description});
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,13 +23,17 @@ class NewsItemCarrosel extends StatelessWidget {
             borderRadius: BorderRadius.circular(26),
             child: Image.network(
 
-              "https://s.yimg.com/ny/api/res/1.2/m8pYpe_L6lFKLGe2AeEHaA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02MDA-/https://media.zenfs.com/en/the_wall_street_journal_hosted_996/c6648e7d6b48ffdebde02401bd5aac19",
+              imageUrl,
               fit: BoxFit.cover,
                 width: double.infinity, // Largura do Container
                 height: double.infinity// Ajuste a imagem para cobrir o ClipRRect
             ),
           ),
-          AppText(text: "Teste noticia", color: Colors.white),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: AppText(text: description, color: Colors.white),
+          ),
+
         ],
       ),
     );
