@@ -28,6 +28,7 @@ class Article {
   String? urlToImage;
   String publishedAt;
   String content;
+  bool favorite;
 
   Article({
     required this.source,
@@ -38,7 +39,21 @@ class Article {
     this.urlToImage,
     required this.publishedAt,
     required this.content,
+    this.favorite = false
+
   });
+  Map<String, dynamic> toJson() => {
+    "source": source.toJson(),
+    "author": author,
+    "title": title,
+    "description": description,
+    "url": url,
+    "urlToImage": urlToImage,
+    "publishedAt": publishedAt,
+    "content": content,
+    "favorite": favorite,
+  };
+
 
   // Desserialização: JSON -> Objeto
   factory Article.fromJson(Map<String, dynamic> json) {
@@ -62,6 +77,10 @@ class Source {
     required this.id,
     required this.name,
   });
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "name": name,
+  };
 
   factory Source.fromJson(Map<String, dynamic> json) {
     return Source(

@@ -4,7 +4,9 @@ import 'package:news_app_flutter/widgets/app_large_text.dart';
 import 'package:news_app_flutter/widgets/app_text.dart';
 
 class NewDetailPage extends StatefulWidget {
-  const NewDetailPage({super.key});
+  const NewDetailPage({super.key, required this.articleImage, required this.articleContent});
+  final Widget articleImage;
+  final String articleContent;
 
   @override
   State<NewDetailPage> createState() => _NewDetailPageState();
@@ -22,12 +24,7 @@ class _NewDetailPageState extends State<NewDetailPage> {
             Container(
               height: 300,
 
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: NetworkImage("https://s.yimg.com/ny/api/res/1.2/m8pYpe_L6lFKLGe2AeEHaA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyMDA7aD02MDA-/https://media.zenfs.com/en/the_wall_street_journal_hosted_996/c6648e7d6b48ffdebde02401bd5aac19"),
-                      fit: BoxFit.cover
-                  )
-              ),
+              child: widget.articleImage,
             ),
             Positioned(child: IconButton(
               onPressed: (){
@@ -35,15 +32,7 @@ class _NewDetailPageState extends State<NewDetailPage> {
               },
               icon: Icon(Icons.arrow_back,color: Colors.white,size: 30,),
             )),
-            Positioned(
-              bottom: 20,
-                child:Padding(
-                  padding: const EdgeInsets.only(left: 20,right: 20),
-                  child: Container(
-                      width:340,
-                      child: AppLargeText(text: "fdjdsijgldgklfsgfdsgnkldngk.ndkjgnkjdgnk.dngkjdhsnkjvhdkjhvdo;hv;;gl;",size: 20,color: Colors.white,)),
-                )
-            )
+
 
           ],
 
@@ -54,11 +43,10 @@ class _NewDetailPageState extends State<NewDetailPage> {
               child: Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: SingleChildScrollView(
-                    child: AppText(text: "sfjsoifjoisfjo;ishjfioshofghfhioshgfoxvdvgdvgdgvdvbgdbgvdxdsbdbdbdbbdbssh",color: Colors.black,size: 20,),
-                  )
+                    child: AppLargeText(text:widget.articleContent,size: 27,)
               ),
             )
-          ]
+            )]
 
           )
 

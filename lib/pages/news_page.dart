@@ -11,7 +11,9 @@ import '../widgets/new_card.dart';
 import '../widgets/news_item_carrosel.dart';
 
 class NewsPage extends StatefulWidget {
-  const NewsPage({super.key});
+  NewsPage({super.key});
+
+  List categories=["business","entertainment","general","health","science","sports","technology"];
 
 
   @override
@@ -22,12 +24,16 @@ class _NewsPageState extends State<NewsPage> {
 
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  
+
   @override
   void initState() {
- 
+
     super.initState();
     context.read<NewsCubit>().fetchTopHeadlines();
+  }
+
+  void _fetchCategoryNews(String category){
+    context.read<NewsCubit>().fetchTopHeadlines(category:category);
   }
 
   @override
@@ -63,21 +69,39 @@ class _NewsPageState extends State<NewsPage> {
                 BlocBuilder<NewsCubit,NewState>(
                     builder: (context,state){
                       if (state is LoadingState){
-                        return Center(child: Text("Error: Ocorreu um erro"));
+                        return Center(child: CircularProgressIndicator());
                       }
                       else if(state is LoadedState){
                         List _carroselUrlImages=[
-                        state.articles[0].urlToImage ?? const  Icon(
+                        state.articles[0].urlToImage != null ?Image.network(
+
+                            state.articles[0].urlToImage!,
+                            fit: BoxFit.cover,
+                            width: double.infinity, // Largura do Container
+                            height: double.infinity// Ajuste a imagem para cobrir o ClipRRect
+                        ):  const  Icon(
                           Icons.image,
                           size: 50.0,
                           color: Colors.grey,
                         ),
-                        state.articles[1].urlToImage ?? const  Icon(
-                          Icons.image,
-                          size: 50.0,
-                          color: Colors.grey,
-                        ),
-                          state.articles[2].urlToImage ?? const Icon(
+                          state.articles[1].urlToImage != null ?Image.network(
+
+                              state.articles[1].urlToImage!,
+                              fit: BoxFit.cover,
+                              width: double.infinity, // Largura do Container
+                              height: double.infinity// Ajuste a imagem para cobrir o ClipRRect
+                          ):  const  Icon(
+                            Icons.image,
+                            size: 50.0,
+                            color: Colors.grey,
+                          ),
+                          state.articles[2].urlToImage != null ?Image.network(
+
+                              state.articles[2].urlToImage!,
+                              fit: BoxFit.cover,
+                              width: double.infinity, // Largura do Container
+                              height: double.infinity// Ajuste a imagem para cobrir o ClipRRect
+                          ):  const  Icon(
                             Icons.image,
                             size: 50.0,
                             color: Colors.grey,
@@ -107,7 +131,7 @@ class _NewsPageState extends State<NewsPage> {
                       else if (state is ErrorLoadedState){
                         return Center(child: Text("Error: Ocorreu um erro"));
                       } else {
-                        return Center(child: Text('No data'));
+                        return Center(child: Text('No favorites added yet'));
                       }
                     }),
 
@@ -139,10 +163,13 @@ class _NewsPageState extends State<NewsPage> {
             margin: EdgeInsets.all(10),
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount: widget.categories.length,
               itemBuilder: (context,index) => Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: CategoryButton(),
+                child: CategoryButton(
+                    category: widget.categories[index],
+                    updateCategory: () => _fetchCategoryNews(widget.categories[index])
+                ),
 
               ),
             )

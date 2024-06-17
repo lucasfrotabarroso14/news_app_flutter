@@ -9,10 +9,10 @@ class NewsCubit extends Cubit<NewState> {
 
   NewsCubit(this._newsService) : super(InitialNewState());
 
-  void fetchTopHeadlines() async {
+  void fetchTopHeadlines({String category = "general"}) async {
     try{
       emit(LoadingState());
-      final articles = await _newsService.getTopHeadLines();
+      final articles = await _newsService.getTopHeadLines(category: category);
       emit(LoadedState(articles));
 
     }catch(e){

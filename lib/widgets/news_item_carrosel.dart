@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:news_app_flutter/widgets/app_large_text.dart';
 import 'package:news_app_flutter/widgets/app_text.dart';
 
 class NewsItemCarrosel extends StatelessWidget {
 
-  final String imageUrl;
+  final Widget imageUrl;
   final String description;
 
   const NewsItemCarrosel({super.key, required this.imageUrl, required this.description});
@@ -21,17 +22,17 @@ class NewsItemCarrosel extends StatelessWidget {
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(26),
-            child: Image.network(
-
-              imageUrl,
-              fit: BoxFit.cover,
-                width: double.infinity, // Largura do Container
-                height: double.infinity// Ajuste a imagem para cobrir o ClipRRect
-            ),
+            child:imageUrl
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AppText(text: description, color: Colors.white),
+          Positioned(
+            bottom: 10,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10,right: 30),
+              child: Container(
+
+                  width: 340,
+                  child: AppLargeText(text: description, color: Colors.white,size: 16,)),
+            ),
           ),
 
         ],

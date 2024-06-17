@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class CategoryButton extends StatelessWidget {
-  const CategoryButton({super.key});
+  const CategoryButton({super.key, required this.category, required this.updateCategory});
+  final String category;
+  final VoidCallback updateCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +17,8 @@ class CategoryButton extends StatelessWidget {
               side: BorderSide(color: Colors.black,width: 1)
           )
       ),
-      onPressed: (){},
-      child: Text("Business"),
+      onPressed: updateCategory,
+      child: Text(category),
 
 
     );
