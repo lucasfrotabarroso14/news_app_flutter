@@ -1,19 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_flutter/cubit/news_state.dart';
 import 'package:news_app_flutter/widgets/app_large_text.dart';
 import 'package:news_app_flutter/widgets/app_text.dart';
 import 'package:news_app_flutter/widgets/category_button.dart';
 
-import '../cubit/news_cubit.dart';
+import '../cubit/news/news_cubit.dart';
+import '../cubit/news/news_state.dart';
 import '../widgets/new_card.dart';
 import '../widgets/news_item_carrosel.dart';
 
 class NewsPage extends StatefulWidget {
   NewsPage({super.key});
 
-  List categories=["business","entertainment","general","health","science","sports","technology"];
+  List categories=["Business","Entertainment","General","Health","Science","Sports","Technology"];
 
 
   @override
@@ -39,18 +39,32 @@ class _NewsPageState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        notificationPredicate: (_) => false,
+        title:AppLargeText(text: "Breaking News") ,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+              child: AppText(text: "See All"),
+            ),
+          ),
+        ],
+
+
+      ),
 
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
 
           Container(
-            padding: EdgeInsets.all(16),
+            padding: EdgeInsets.all(3),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                AppLargeText(text: "Breaking News"),
-                AppText(text: "See All"),
+
+
 
 
               ],
@@ -182,7 +196,7 @@ class _NewsPageState extends State<NewsPage> {
               builder: (context, state) {
                 if(state is LoadingState){
                   return Center(child: CircularProgressIndicator());
-                }else if(state is LoadedState){
+                }else if(state is LoadedState ){
                   return ListView.builder(
                       itemCount: state.articles.length,
                       itemBuilder: (context,index) => Padding(

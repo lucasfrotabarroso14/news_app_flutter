@@ -2,12 +2,15 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app_flutter/cubit/news/news_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../models/new_model.dart';
+import '../../models/new_model.dart';
 import 'favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
+
+
   FavoriteCubit() : super(FavoriteInitial()){
     _loadFavoritesLocalStorage();
   }
@@ -16,6 +19,8 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   List<Article> _favorites = [];
+
+
 
   void addFavorite(Article article){
     if (state is FavoriteLoaded){
@@ -26,6 +31,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       if (!favorites.contains(article)){
         favorites.add(article);
         emit(FavoriteLoaded(favorites));
+
       }
     } else {
       emit(FavoriteLoaded([article]));
@@ -36,11 +42,14 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   void removeFavorite(Article article){
     if(state is FavoriteLoaded){
       final favorites =  (state as FavoriteLoaded).favorites;
-      if(!favorites.contains(article)){
+      if(!favorites.any((item) => item.title == article.title)){
         return;
       }
-      favorites.remove(article);
-      emit(FavoriteLoaded(List.from(favorites)..remove(article)));
+      final updatedFavorites = favorites.where((item) => item.title != item.title).toList();
+
+      // Emite o novo estado com a lista atualizada de favoritos
+      emit(FavoriteLoaded(updatedFavorites));
+
       _saveFavoritesLocal();
     }
   }
@@ -80,6 +89,21 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     else{
       addFavorite(article);
 
+    }
+  }
+
+  void searchNewsByTitle(String searchText){
+
+    if (searchText.isEmpty){
+      emit(FavoriteLoaded(List.from(_favorites)));
+    }
+
+    else{
+      final filteredArticles = _favorites
+          .where((article) => article.title.toLowerCase().contains(searchText.toLowerCase()))
+      .toList();
+      emit(FavoriteLoaded((filteredArticles))
+      );
     }
   }
 

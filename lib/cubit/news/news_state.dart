@@ -1,4 +1,5 @@
-import '../models/new_model.dart';
+import '../../models/new_model.dart';
+
 
 abstract class NewState{}
 

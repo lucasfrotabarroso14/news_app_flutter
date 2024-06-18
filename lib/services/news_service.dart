@@ -17,6 +17,7 @@ class NewsService{
         var jsonData = jsonDecode(response.body);
 
         List<Article> articles = (jsonData["articles"] as List)
+        .where((articleJson) => articleJson["urlToImage"] != null)
         .map((articlesJson) => Article.fromJson(articlesJson))
         .toList();
         return articles;

@@ -16,7 +16,7 @@ class NewsItemCarrosel extends StatelessWidget {
 
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(26),
-        color: Colors.green
+
       ),
       child: Stack(
         children: [
