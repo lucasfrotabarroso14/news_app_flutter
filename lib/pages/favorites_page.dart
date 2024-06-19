@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_flutter/cubit/favorite/favorite_cubit.dart';
-import '../cubit/favorite/favorite_state.dart';
-import '../cubit/news/news_cubit.dart';
+
+import '../cubits/favorite/favorite_cubit.dart';
+import '../cubits/favorite/favorite_state.dart';
 import '../widgets/new_card.dart';
 
 

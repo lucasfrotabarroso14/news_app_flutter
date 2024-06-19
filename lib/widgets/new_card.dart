@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_flutter/cubit/favorite/favorite_cubit.dart';
+
 import 'package:news_app_flutter/pages/new_detail_page.dart';
 
-import '../cubit/favorite/favorite_state.dart';
+import '../cubits/favorite/favorite_cubit.dart';
+import '../cubits/favorite/favorite_state.dart';
 import '../models/new_model.dart';
 import 'app_large_text.dart';
 import 'app_text.dart';

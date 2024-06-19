@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:news_app_flutter/cubit/news/news_state.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../models/new_model.dart';
@@ -41,11 +41,12 @@ class FavoriteCubit extends Cubit<FavoriteState> {
 
   void removeFavorite(Article article){
     if(state is FavoriteLoaded){
-      final favorites =  (state as FavoriteLoaded).favorites;
+      final favorites = (state as FavoriteLoaded).favorites;
+
       if(!favorites.any((item) => item.title == article.title)){
         return;
       }
-      final updatedFavorites = favorites.where((item) => item.title != item.title).toList();
+      final updatedFavorites = favorites.where((item) => item.title != article.title).toList();
 
       // Emite o novo estado com a lista atualizada de favoritos
       emit(FavoriteLoaded(updatedFavorites));

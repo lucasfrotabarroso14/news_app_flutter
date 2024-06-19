@@ -5,8 +5,6 @@ import 'package:news_app_flutter/pages/favorites_page.dart';
 import 'package:news_app_flutter/pages/new_detail_page.dart';
 import 'package:news_app_flutter/pages/news_page.dart';
 import 'package:news_app_flutter/pages/profile_page.dart';
-
-import '../cubit/news/news_cubit.dart';
 import '../widgets/app_large_text.dart';
 
 class TabScreen extends StatefulWidget {

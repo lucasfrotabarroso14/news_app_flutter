@@ -5,10 +5,11 @@ import 'package:news_app_flutter/widgets/app_large_text.dart';
 import 'package:news_app_flutter/widgets/app_text.dart';
 import 'package:news_app_flutter/widgets/category_button.dart';
 
-import '../cubit/news/news_cubit.dart';
-import '../cubit/news/news_state.dart';
+import '../cubits/news/news_cubit.dart';
+import '../cubits/news/news_state.dart';
 import '../widgets/new_card.dart';
 import '../widgets/news_item_carrosel.dart';
+import 'login_page.dart';
 
 class NewsPage extends StatefulWidget {
   NewsPage({super.key});
@@ -46,7 +47,13 @@ class _NewsPageState extends State<NewsPage> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
-              child: AppText(text: "See All"),
+              child: InkWell(
+                onTap: (){
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: (ctx) => LoginPage())
+                  );
+                },
+                  child: AppText(text: "See All")),
             ),
           ),
         ],
