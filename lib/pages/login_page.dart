@@ -8,12 +8,28 @@ import 'package:news_app_flutter/widgets/app_text.dart';
 
 import '../cubits/auth/auth_state.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
 
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController =  TextEditingController();
 
   LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+
+class _LoginPageState extends State<LoginPage> {
+
+  @override
+  void initState() {
+
+    super.initState();
+    context.read<AuthCubit>().resetPasswordVisibility();
+  }
+
+  final TextEditingController emailController = TextEditingController();
+
+  final TextEditingController passwordController =  TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +97,7 @@ class LoginPage extends StatelessWidget {
                       obscureText:  !isPasswordVisible,
                       decoration: InputDecoration(
                           suffixIcon: IconButton(
-                            icon: Icon(Icons.visibility), // Ícone de visualização de senha à direita
+                            icon:isPasswordVisible == false ? Icon(Icons.visibility):Icon(Icons.visibility_off), // Ícone de visualização de senha à direita
                             onPressed: () {
                               context.read<AuthCubit>().togglePasswordVisibility();
 
@@ -105,11 +121,23 @@ class LoginPage extends StatelessWidget {
 
                     TextButton(
 
+
+
                         onPressed: (){
                           context.read<AuthCubit>().signIn(
                             emailController.text,
                             passwordController.text
                           );
+
+                          if (state is AuthenticatedState){
+                            Navigator.of(context).push(
+                                MaterialPageRoute(builder: (ctx) => TabScreen())
+                            );
+                          }
+                          if (state is AuthErrorState){
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(state.message)));
+                          }
+
                         },
 
                         style: TextButton.styleFrom(

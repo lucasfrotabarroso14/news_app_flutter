@@ -17,7 +17,8 @@ class AuthCubit extends Cubit<AuthState>{
       emit(LoadingAuthState());
       User? user = await _authServices.signUpWithEmailAndPassword(email, password);
       if(user != null){
-        emit(AuthenticatedState(user));
+        emit(SignUpSuccessState());
+
       }else{
         emit(AuthErrorState("Authenticated Error"));
       }
@@ -26,6 +27,11 @@ class AuthCubit extends Cubit<AuthState>{
       emit(AuthErrorState("Error: $e"));
     }
   }
+  void resetPasswordVisibility() {
+    emit(PasswordsVisibleState(false));
+  }
+
+
 
   void togglePasswordVisibility(){
 
@@ -47,7 +53,7 @@ class AuthCubit extends Cubit<AuthState>{
       if(user != null){
         emit(AuthenticatedState(user));
       }else{
-        emit(AuthErrorState("Error during log in"));
+        emit(AuthErrorState("Invalid email or password "));
       }
     }catch(e){
       emit(AuthErrorState("Error: $e"));

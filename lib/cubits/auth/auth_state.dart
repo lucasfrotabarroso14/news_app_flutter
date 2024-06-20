@@ -24,3 +24,7 @@ class PasswordsVisibleState extends AuthState{
   final bool isVisible;
   PasswordsVisibleState(this.isVisible);
 }
+
+class SignUpSuccessState extends AuthState{
+
+}
