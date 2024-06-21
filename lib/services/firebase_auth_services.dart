@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class FirebaseAuthServices{
   FirebaseAuth _auth = FirebaseAuth.instance;
 
+
   Future<User?> signUpWithEmailAndPassword(String email, String password) async {
 
     try{
@@ -32,6 +33,14 @@ class FirebaseAuthServices{
     }
     return null;
 
+  }
+
+  Future<void> signOut() async {
+    try{
+      await _auth.signOut();
+    }catch(e){
+      print("Error signing out: $e");
+    }
   }
 
 

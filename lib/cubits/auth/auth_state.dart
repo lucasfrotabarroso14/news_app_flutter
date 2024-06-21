@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../models/user_model.dart';
+
 abstract class AuthState{}
 
 class InitialAuthState extends AuthState{}
@@ -7,7 +9,7 @@ class InitialAuthState extends AuthState{}
 class LoadingAuthState extends AuthState{}
 
 class AuthenticatedState extends AuthState{
-  final User user;
+  final UserModel user;
 
   AuthenticatedState(this.user);
 

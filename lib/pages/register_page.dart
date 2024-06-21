@@ -18,11 +18,12 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController passwordController = TextEditingController();
-
   final TextEditingController repeatPasswordController = TextEditingController();
+  final TextEditingController displayNameController = TextEditingController();
+
 
   @override
   void initState() {
@@ -65,7 +66,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                 ),
             Positioned(
-              top:  320,
+              top:  280,
               child: Container(
                 padding: EdgeInsets.only(left: 20,right: 20,top: 30),
                 height: 500,
@@ -87,6 +88,20 @@ class _RegisterPageState extends State<RegisterPage> {
                           prefixIcon: Icon(Icons.email),
                           labelStyle: TextStyle(color: Colors.black),
                           labelText: 'Email',
+                          enabledBorder: OutlineInputBorder(
+                              borderSide:BorderSide(color: Colors.black,width: 2)
+                          )
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+
+                    TextField(
+
+                      controller: displayNameController,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.person),
+                          labelStyle: TextStyle(color: Colors.black),
+                          labelText: 'Name',
                           enabledBorder: OutlineInputBorder(
                               borderSide:BorderSide(color: Colors.black,width: 2)
                           )
@@ -142,6 +157,8 @@ class _RegisterPageState extends State<RegisterPage> {
 
 
                     ),
+
+
                     SizedBox(height: 20,),
 
                     TextButton(

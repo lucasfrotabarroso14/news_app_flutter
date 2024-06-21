@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/user_model.dart';
 import '../../services/firebase_auth_services.dart';
 import 'auth_state.dart';
 
@@ -51,7 +52,8 @@ class AuthCubit extends Cubit<AuthState>{
       emit(LoadingAuthState());
       User? user = await _authServices.signInWithEmailAndPassword(email, password);
       if(user != null){
-        emit(AuthenticatedState(user));
+        UserModel userModel = UserModel.fromFireBaseUser(user);
+        emit(AuthenticatedState(userModel));
       }else{
         emit(AuthErrorState("Invalid email or password "));
       }
@@ -60,5 +62,21 @@ class AuthCubit extends Cubit<AuthState>{
     }
     
   }
-  
+
+  Future<void> signOut() async{
+    try {
+
+      await _authServices.signOut();
+      emit(UnauthenticatedState());
+
+
+    }catch (e){
+      emit(AuthErrorState("Error: $e"));
+    }
+  }
+
+
 }
+
+
+
