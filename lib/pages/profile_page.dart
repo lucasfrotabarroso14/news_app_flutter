@@ -13,7 +13,9 @@ class ProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+
       appBar: AppBar(
         notificationPredicate: (_) => false,
 
@@ -31,7 +33,9 @@ class ProfilePage extends StatelessWidget {
           return Column(
 
 
-            children: [
+          children: [
+
+
               SizedBox(height: 26,),
               Center(
                 child: Container(
@@ -43,8 +47,10 @@ class ProfilePage extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 10,),
+              if(state is AuthenticatedState)
               Container(
-                child: AppLargeText(text: "Lucas Barroso", size: 24,),
+
+                child: AppLargeText(text: state.user.displayName?? "", size: 24,),
               ),
               Padding(
                 padding: const EdgeInsets.all(30.0),
@@ -72,7 +78,8 @@ class ProfilePage extends StatelessWidget {
                           Icon(Icons.person),
                           SizedBox(width: 10,),
                           if(state is AuthenticatedState)
-                            AppText(text: state.user.email,size:16  ,),
+
+                            AppText(text: state.user.displayName ?? "" ,size:16  ,),
 
                         ],
                       ),
@@ -152,9 +159,14 @@ class ProfilePage extends StatelessWidget {
               )
 
             ],
+
           );
         },
       ),
+
+
     );
   }
+
 }
+
