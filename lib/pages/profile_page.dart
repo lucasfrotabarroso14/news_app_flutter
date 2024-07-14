@@ -79,7 +79,7 @@ class ProfilePage extends StatelessWidget {
                           SizedBox(width: 10,),
                           if(state is AuthenticatedState)
 
-                            AppText(text: state.user.displayName ?? "" ,size:16  ,),
+                            AppText(text: state.user.displayName ?? "Lucas" ,size:16  ,),
 
                         ],
                       ),

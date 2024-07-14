@@ -43,6 +43,8 @@ class _LoginPageState extends State<LoginPage> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true, //
       body: Container(
         width: double.maxFinite,
         height: double.maxFinite,
