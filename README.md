@@ -6,7 +6,7 @@ Este é um aplicativo desenvolvido em Flutter que consome uma API de notícias e
 ## Capturas de tela
 
 ### Tela de Login 
-  <img src="https://i.imgur.com/sWIPBt4.png" alt="Tela Login" width="250">
+  <img src="https://i.imgur.com/KY6OgmR.png" alt="Tela Login" width="250">
 
 
 
