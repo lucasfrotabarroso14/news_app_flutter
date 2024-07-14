@@ -1,16 +1,30 @@
-# news_app_flutter
+# News App Flutter 
 
-A new Flutter project.
+Aplicativo de Noticias que segue o padrao cubit, tem integracao com o firebase auth 
 
-## Getting Started
+## Capturas de tela
 
-This project is a starting point for a Flutter application.
+### Tela de Login 
+  <img src="https://i.imgur.com/sWIPBt4.png[/img]" alt="Tela Login" width="250">
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Tela de Cadastro
+<img src="https://i.imgur.com/XQoZSe5.png"  width="250">
+
+
+
+### Tela de Noticias
+<img src="https://i.imgur.com/egEj3CF.png"  width="250">
+
+
+
+### Tela de Favoritos
+<img src="https://i.imgur.com/URuGUsb.png"  width="250">
+
+
+
+### Tela de Perfil
+<img src="https://i.imgur.com/222iYgz.png"  width="250">
+
+
