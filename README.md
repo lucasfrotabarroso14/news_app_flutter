@@ -1,6 +1,7 @@
 # News App Flutter 
 
-Aplicativo de Noticias que segue o padrao cubit, tem integracao com o firebase auth 
+Este é um aplicativo desenvolvido em Flutter que consome uma API de notícias e segue o padrão Cubit. Além disso, integra o Firebase Auth para autenticação de usuários.
+
 
 ## Capturas de tela
 
